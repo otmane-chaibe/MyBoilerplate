@@ -1,0 +1,83 @@
+{
+  "name": "ocblog",
+  "version": "1.0.0",
+  "private": true,
+  "description": "OCBlog",
+  "author": "Clevertech <support@clevertech.biz>",
+  "scripts": {
+    "precommit": "lint-staged",
+    "lint": "eslint .",
+    "e2e": "testcafe chrome e2e/*.test.js",
+    "db-client": "bnr --path=./api/.env db-client",
+    "browse": "browse"
+  },
+  "betterScripts": {
+    "db-client": "PGPASSWORD=$DB_PASSWORD psql -h 127.0.0.1 -U $DB_USER $DB_DATABASE"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{json,css,scss,md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.*": [
+      "findsecrets",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "@clevertech.biz/findsecrets": "^0.1.1",
+    "babel-eslint": "^7.2.3",
+    "better-npm-run": "^0.1.0",
+    "eslint": "^4.1.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-react-app": "^2.0.1",
+    "eslint-plugin-flowtype": "^2.34.1",
+    "eslint-plugin-import": "^2.6.0",
+    "eslint-plugin-jest": "^21.5.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-prettier": "^2.4.0",
+    "eslint-plugin-react": "^7.1.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^6.0.0",
+    "prettier": "^1.9.2",
+    "testcafe": "^0.18.6",
+    "@clevertech.biz/browse": "^0.1.2"
+  },
+  "browse": {
+    "sentry": "https://sentry.cleverbuild.biz/clevertech/ocblog-sentry/",
+    "development": {
+      "servers": {
+        "api": "https://api-ocblog-dev-agmxyh.cleverbuild.biz/",
+        "frontend": "https://ocblog-dev-agmxyh.cleverbuild.biz/"
+      },
+      "logs": {
+        "api": "https://service.us2.sumologic.com/ui/index.html#section/search/@0,0@_sourcecategory=%22kubernetes/ocblog/development/ocblog/api%22",
+        "frontend": "https://service.us2.sumologic.com/ui/index.html#section/search/@0,0@_sourcecategory=%22kubernetes/ocblog/development/ocblog/frontend%22"
+      }
+    },
+    "staging": {
+      "servers": {
+        "api": "https://api-ocblog-staging-pjoilt.cleverbuild.biz/",
+        "frontend": "https://ocblog-staging-pjoilt.cleverbuild.biz/"
+      },
+      "logs": {
+        "api": "https://service.us2.sumologic.com/ui/index.html#section/search/@0,0@_sourcecategory=%22kubernetes/ocblog/staging/ocblog/api%22",
+        "frontend": "https://service.us2.sumologic.com/ui/index.html#section/search/@0,0@_sourcecategory=%22kubernetes/ocblog/staging/ocblog/frontend%22"
+      }
+    },
+    "production": {
+      "servers": {
+        "api": "https://api.example.com",
+        "frontend": "https://example.com/"
+      },
+      "logs": {
+        "api": "https://service.us2.sumologic.com/ui/index.html#section/search/@0,0@_sourcecategory=%22kubernetes/ocblog/production/ocblog/api%22",
+        "frontend": "https://service.us2.sumologic.com/ui/index.html#section/search/@0,0@_sourcecategory=%22kubernetes/ocblog/production/ocblog/frontend%22"
+      }
+    }
+  }
+}
